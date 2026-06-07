@@ -136,7 +136,8 @@ jobs:
               "task_key": "Preparacion_Ambiente",
               "description": "Ejecuta notebook Preparacion_Ambiente",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/1_preparacion_ambiente",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/",
+                1_preparacion_ambiente
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "storageName": "adlsssmartdataanayeli2"
@@ -150,7 +151,7 @@ jobs:
               "task_key": "Ingest_orders",
               "description": "Ejecuta notebook Ingest_orders",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/2_1_ingest_orders",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/2_1_ingest_orders",
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "container": "raw",
@@ -172,7 +173,7 @@ jobs:
               "task_key": "Ingest_customers",
               "description": "Ejecuta notebook Ingest_customers",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/2_2_ingest_customers",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/2_2_ingest_customers",
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "container": "raw",
@@ -194,7 +195,7 @@ jobs:
               "task_key": "Ingest_products",
               "description": "Ejecuta notebook Ingest_products",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/2_3_ingest_products",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/2_3_ingest_products",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "container": "raw",
@@ -216,7 +217,7 @@ jobs:
               "task_key": "Ingest_order_items",
               "description": "Ejecuta notebook Ingest_order_items",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/2_4_ingest_order_items",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/2_4_ingest_order_items",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "container": "raw",
@@ -238,7 +239,7 @@ jobs:
               "task_key": "Transform_orders",
               "description": "Ejecuta notebook Transform_orders",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/3_1_transform_orders",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/3_1_transform_orders",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -259,7 +260,7 @@ jobs:
               "task_key": "Transform_customers",
               "description": "Ejecuta notebook Transform_customers",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/3_2_transform_customers",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/3_2_transform_customers",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -280,7 +281,7 @@ jobs:
               "task_key": "Transform_products",
               "description": "Ejecuta notebook Transform_products",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/3_3_transform_products",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/3_3_transform_products",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -301,7 +302,7 @@ jobs:
               "task_key": "Transform_order_items",
               "description": "Ejecuta notebook Transform_order_items",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/3_4_transform_order_items",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/3_4_transform_order_items",
                 "source": "WORKSPACE",
                   "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -322,7 +323,7 @@ jobs:
               "task_key": "dimCustomer",
               "description": "Ejecuta notebook dimCustomer",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/4_1_dimCustomer",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/4_1_dimCustomer",
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -343,7 +344,7 @@ jobs:
               "task_key": "dimProduct",
               "description": "Ejecuta notebook dimProduct",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/4_2_dimProduct",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/4_2_dimProduct",
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "catalogo": "proyecto_olist",
@@ -364,7 +365,7 @@ jobs:
               "task_key": "factOrders",
               "description": "Ejecuta notebook factOrders",
               "notebook_task": {
-                "notebook_path": "/CICDDATABRICKS/proceso/4_3_factOrders",
+                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/4_3_factOrders",
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "catalogo": "proyecto_olist",
