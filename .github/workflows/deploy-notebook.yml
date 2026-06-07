@@ -44,21 +44,21 @@ jobs:
             "$DEST_HOST/api/2.0/workspace/mkdirs"
           echo "Importando $file → $dest_path"
           response=$(curl -s -X POST \
-  -H "Authorization: Bearer $DEST_TOKEN" \
-  -H "Content-Type: multipart/form-data" \
-  -F "path=$dest_path" \
-  -F "format=SOURCE" \
-  -F "language=PYTHON" \
-  -F "overwrite=true" \
-  -F "content=@$file" \
-  "$DEST_HOST/api/2.0/workspace/import")
+            -H "Authorization: Bearer $DEST_TOKEN" \
+            -H "Content-Type: multipart/form-data" \
+            -F "path=$dest_path" \
+            -F "format=SOURCE" \
+            -F "language=PYTHON" \
+            -F "overwrite=true" \
+            -F "content=@$file" \
+            "$DEST_HOST/api/2.0/workspace/import")
 
-echo "Response: $response"
+          echo "Response: $response"
 
-if echo "$response" | grep -q "error_code"; then
-  echo "❌ Error importando notebook: $dest_path"
-  exit 1
-fi
+          if echo "$response" | grep -q "error_code"; then
+            echo "❌ Error importando notebook: $dest_path"
+            exit 1
+          fi
         done
     
     - name: Check if workflow exists and delete if necessary
