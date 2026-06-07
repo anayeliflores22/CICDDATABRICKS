@@ -12,10 +12,23 @@ El objetivo es demostrar conocimientos de Data Engineering mediante la construcc
 * ETL Automatizado - Aplicar procesos ETL utilizando PySpark con despliegue automático via GitHub Actions
 * Arquitectura Medallion - Separación clara de capas Bronze → Silver → Gold
 * Realizar ingestión de datos batch y streaming
-* Modelo Dimensional - Star Schema optimizado para análisis de negocio
+* Modelo Dimensional - Modelo estrella optimizado para análisis de negocio
 * CI/CD Integrado - Deploy automático en cada push a master
 * Power BI Dashboards - Visualización
-* Delta Lake - ACID transactions y time travel capabilities
+* Unity Catalog - Implementar controles de seguridad utilizando Unity Catalog.
+
+##  Dataset Utilizado
+
+Fuente Principal: Brazilian E-Commerce Public Dataset by Olist
+
+Contiene información histórica de pedidos realizados en la plataforma Olist.
+
+Tablas utilizadas:
+
+- orders
+- customers
+- products
+- order_items
 
 ## 🏛️ Arquitectura
 
