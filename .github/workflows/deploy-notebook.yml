@@ -32,7 +32,7 @@ jobs:
       run: |
         DEST_HOST=${{ secrets.DATABRICKS_DEST_HOST }}
         DEST_TOKEN=${{ secrets.DATABRICKS_DEST_TOKEN }}
-        DEST_BASE="/CICDDATABRICKS/proceso"
+        DEST_BASE="/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso"
         for file in notebooks_to_deploy/*.py; do
           name=$(basename "$file" .py)
           dest_path="$DEST_BASE/$name"
@@ -44,15 +44,21 @@ jobs:
             "$DEST_HOST/api/2.0/workspace/mkdirs"
           echo "Importando $file → $dest_path"
           response=$(curl -s -X POST \
-            -H "Authorization: Bearer $DEST_TOKEN" \
-            -H "Content-Type: multipart/form-data" \
-            -F "path=$dest_path" \
-            -F "format=SOURCE" \
-            -F "language=PYTHON" \
-            -F "overwrite=true" \
-            -F "content=@$file" \
-            "$DEST_HOST/api/2.0/workspace/import")
-          echo "Response: $response"
+  -H "Authorization: Bearer $DEST_TOKEN" \
+  -H "Content-Type: multipart/form-data" \
+  -F "path=$dest_path" \
+  -F "format=SOURCE" \
+  -F "language=PYTHON" \
+  -F "overwrite=true" \
+  -F "content=@$file" \
+  "$DEST_HOST/api/2.0/workspace/import")
+
+echo "Response: $response"
+
+if echo "$response" | grep -q "error_code"; then
+  echo "❌ Error importando notebook: $dest_path"
+  exit 1
+fi
         done
     
     - name: Check if workflow exists and delete if necessary
@@ -115,7 +121,7 @@ jobs:
       run: |
         DEST_HOST=${{ secrets.DATABRICKS_DEST_HOST }}
         DEST_TOKEN=${{ secrets.DATABRICKS_DEST_TOKEN }}
-        DEST_BASE="/CICDDATABRICKS/proceso"
+        DEST_BASE="/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso"
         CLUSTER_ID="${{ env.CLUSTER_ID }}"
         
         echo "Creando workflow: WF_PROD_ETL_OLIST con cluster existente ID: $CLUSTER_ID"
