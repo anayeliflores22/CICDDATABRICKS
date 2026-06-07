@@ -9,13 +9,13 @@ El objetivo es demostrar conocimientos de Data Engineering mediante la construcc
 
 ## Objetivos
 
-* 🔄 ETL Automatizado - Pipeline completo con despliegue automático via GitHub Actions
-* 🏗️ Arquitectura Medallion - Separación clara de capas Bronze → Silver → Gold
-* 📊 Modelo Dimensional - Star Schema optimizado para análisis de negocio
-* 🚀 CI/CD Integrado - Deploy automático en cada push a master
-* 📈 Databricks Dashboards - Visualización
-* ⚡ Delta Lake - ACID transactions y time travel capabilities
-* 🔔 Monitoreo - Notificaciones automáticas y logs detallados
+* ETL Automatizado - Aplicar procesos ETL utilizando PySpark con despliegue automático via GitHub Actions
+* Arquitectura Medallion - Separación clara de capas Bronze → Silver → Gold
+* Realizar ingestión de datos batch y streaming
+* Modelo Dimensional - Star Schema optimizado para análisis de negocio
+* CI/CD Integrado - Deploy automático en cada push a master
+* Power BI Dashboards - Visualización
+* Delta Lake - ACID transactions y time travel capabilities
 
 ## 🏛️ Arquitectura
 
