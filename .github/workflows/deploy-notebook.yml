@@ -18,7 +18,7 @@ jobs:
         ORIGIN_HOST=${{ secrets.DATABRICKS_ORIGIN_HOST }}
         ORIGIN_TOKEN=${{ secrets.DATABRICKS_ORIGIN_TOKEN }}
         NOTEBOOK_BASE="/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso"
-        NOTEBOOKS=("1_grants" "1_preparacion_ambiente" "2_1_ingest_orders" "2_2_ingest_customers" "2_3_ingest_products" "2_4_ingest_order_items" "3_1_transform_orders" "3_2_transform_customers" "3_3_transform_products" "3_4_transform_order_items" "4_1_dimCustomer" "4_2_dimProduct" "4_3_factOrders")  # Agrega más según necesitesas
+        NOTEBOOKS=("1_grants.py" "1_preparacion_ambiente.py" "2_1_ingest_orders.py" "2_2_ingest_customers.py" "2_3_ingest_products.py" "2_4_ingest_order_items.py" "3_1_transform_orders.py" "3_2_transform_customers.py" "3_3_transform_products.py" "3_4_transform_order_items.py" "4_1_dimCustomer.py" "4_2_dimProduct.py" "4_3_factOrders.py")  # Agrega más según necesitesas
         mkdir -p notebooks_to_deploy
         for nb in "${NOTEBOOKS[@]}"; do
           echo "Exportando $nb en modo raw..."
@@ -383,28 +383,6 @@ jobs:
                 },
                 {
                   "task_key": "Transform_order_items"
-                }
-              ]
-            },
-            {
-              "task_key": "grants",
-              "description": "Ejecuta notebook grants",
-              "notebook_task": {
-                "notebook_path": "/Workspace/Users/anayeliflores2209@outlook.com/CICDDATABRICKS/proceso/1_grants",
-                "source": "WORKSPACE",
-              },
-              "existing_cluster_id": "$CLUSTER_ID",
-              "timeout_seconds": 3600,
-              "max_retries": 2,
-              "depends_on": [
-                {
-                  "task_key": "dimCustomer"
-                },
-                {
-                  "task_key": "dimProduct"
-                },
-                {
-                  "task_key": "factOrders"
                 }
               ]
             }
