@@ -34,173 +34,160 @@ Tablas utilizadas:
 
 Flujo de Datos
 
-#### 📄 CSV (Raw Data)
+#### 📄 CSV (Almacenamiento de archivos CSV originales.)
     ↓
-#### 🥉 Bronze Layer (Ingesta sin transformación)
+#### 🥉 Bronze Layer (Ingesta de información sin transformación)
     ↓
-#### 🥈 Silver Layer (Limpieza + Modelo Dimensional)
+#### 🥈 Silver Layer (Aplicar limpieza y estandarización)
     ↓
-#### 🥇 Gold Layer (Agregaciones de Negocio)
+#### 🥇 Gold Layer (Generar datasets analíticos y modelo estrella)
     ↓
 #### 📊 BI Dashboards (Visualización)
 
-![Texto descriptivo](Arquitectura.png)
+![Arquitectura de Datos](evidencias/imagenes/Arquitectura.png)
 
 
 ## Capas del Pipeline
 
-![pipeline](pipeline.png)
+![Pipeline](evidencias/imagenes/pipeline.png)
 
-## 🚀 Instalación y Configuración
+## Tecnologías Utilizadas
 
-### 1️⃣ Clonar el Repositorio
+- Azure Data Lake Storage Gen2
+- Azure Databricks
+- PySpark
+- Delta Lake
+- Unity Catalog
+- Databricks Workflows
 
-```bash
-git clone https://github.com/Enrykiel/databricks_project
-cd databricks_project
-```
+## Ingesta de Datos
 
-### 2️⃣ Configurar Databricks Token
+### Batch
 
-1. Ir a Databricks Workspace
-2. **User Settings** → **Developer** → **Access Tokens**
-3. Click en **Generate New Token**
-4. Configurar:
-   - **Comment**: `GitHub CI/CD`
-   - **Lifetime**: `90 days`
-5. ⚠️ Copiar y guardar el token
+Tablas:
 
-### 3️⃣ Configurar GitHub Secrets
+- customers
+- products
+- order_items
+- product_category_translation
 
-En tu repositorio: **Settings** → **Secrets and variables** → **Actions**
+### Spark Read CSV / Streaming
 
-| Secret Name | Valor Ejemplo |
-|------------|---------------|
-| `DATABRICKS_HOST` | `https://adb-xxxxx.azuredatabricks.net` |
-| `DATABRICKS_TOKEN` | `dapi_xxxxxxxxxxxxxxxx` |
+Tabla:
 
-### 4️⃣ Verificar Storage Configuration
+- orders
 
-```python
-storage_path = "abfss://raw@storageproject99.dfs.core.windows.net"
-```
+### Databricks Auto Loader
 
+Formato:
 
-✅ **¡Configuración completa!**
+CSV
 
+Trigger:
 
----
+availableNow
 
-## 💻 Uso
+## Seguridad
 
-### 🔄 Despliegue Automático (Recomendado)
+Se implementaron permisos mediante Unity Catalog.
 
-```bash
-git add .
-git commit -m "✨ feat: mejoras en pipeline"
-git push origin master
-```
+### Grupo DataEngineer
 
-**GitHub Actions ejecutará**:
-- 📤 Deploy de notebooks a `/Workspace/databricks_project/proceso`
-- 🔧 Creación del workflow `WF_PROD_ETL_INSTITUTO`
-- ▶️ Ejecución completa:  Bronze → Silver → Gold
-- 📧 Notificaciones de resultados
+Permisos:
 
-### 🖱️ Despliegue Manual desde GitHub
+- USE CATALOG
+- CREATE SCHEMA
+- USE SCHEMA
+- CREATE TABLE
+- MODIFY
+- SELECT
 
-1. Ir al tab **Actions** en GitHub
-2. Seleccionar **Deploy ETL Apple Sales And Warranty**
-3. Click en **Run workflow**
-4. Seleccionar rama `main`
-5. Click en **Run workflow**
+Capas:
 
-### 🔧 Ejecución Local en Databricks
+- Bronze
+- Silver
+- Gold
 
-Navegar a `/Workspace/databricks_project/proceso` y ejecutar en orden:
+### Grupo DataScientist
 
-```
-- 0_preparacion_ambiente.py         → Crear esquema
-- 1_ingest_ciclo.py                 → Bronze Layer
-- 1_ingest_matricula.py             → Bronze Layer
-- 1_ingest_programa.py              → Bronze Layer
-- 2_transform_mat_escuela.py        → Silver Layer
-- 2_transform_prog_estatus.py       → Silver Layer
-- 3_load.py                         → Gold Layer
-```
+Permisos:
 
----
+- USE CATALOG
+- USE SCHEMA
+- SELECT
 
+Capas:
 
-## 🔄 CI/CD
+- Bronze
+- Silver
+- Gold
 
-### Pipeline de GitHub Actions
+### Grupo DataAnalyst
 
-```yaml
-Workflow: Deploy ETL Apple Sales And Warranty
-├── Deploy notebooks → /Workspace/databricks_project/proceso
-├── Eliminar workflow antiguo (si existe)
-├── Buscar cluster configurado
-├── Crear nuevo workflow con 4 tareas
-├── Ejecutar pipeline automáticamente
-└── Monitorear y notificar resultados
-```
+Permisos:
 
-### 🔄  Workflow Databricks
-![Texto descriptivo](evidencias/WF_PROD_ETL_INSTITUTO.png)
+- USE CATALOG
+- USE SCHEMA
 
+Acceso únicamente a:
 
+- Gold
 
-⏰ Schedule: Diario 8:00 AM (Lima)
-⏱️ Timeout total: 4 horas
-🔒 Max concurrent runs: 1
+Permisos:
 
+- SELECT
 
-## 📈 Dashboards
-https://github.com/Enrykiel/databricks_project/tree/main/dashboard
+##  Orquestación
 
-## 🔍 Monitoreo
+Se implementó un Workflow en Databricks para automatizar la ejecución de los notebooks.
 
-### En Databricks
+Orden de ejecución:
 
-**Workflows**:
-- Ir a **Workflows** en el menú lateral
-- Buscar `WF_PROD_ETF_INSTITUTO`
-- Ver historial de ejecuciones
+1. 1_preparacion_ambiente
+2. 2_1_ingest_orders
+3. 2_2_ingest_customers
+4. 2_3_ingest_products
+5. 2_4_ingest_order_items
+6. 2_5_ingest_product_category_translation
+7. 3_1_transform_orders
+8. 3_2_transform_customers
+9. 3_3_transform_products
+10. 3_4_transform_order_items
+11. 4_1_gold_customers
+12. 4_2_gold_products
+13. 4_3_gold_fact_orders
+14. 1_grants
 
-**Logs por Tarea**:
-- Click en una ejecución específica
-- Click en cada tarea para ver logs detallados
-- Revisar stdout/stderr en caso de errores
+![Workflow](evidencias/WF_PROD_ETL_OLIST.png)
 
-### En GitHub Actions
+## Calidad de Datos
 
-- Tab **Actions** del repositorio
-- Ver historial de workflows
-- Click en ejecución específica para detalles
-- Revisar logs de cada step
+Validaciones implementadas:
 
----
+- Verificación de llaves nulas.
+- Validación de tipos de datos.
+- Estandarización de texto.
+- Control de duplicados.
+- Trazabilidad mediante fechas de procesamiento.
 
-## 👤 Autor
+## Dashboard
 
+Se implemento un dashboard en Power BI para la visualización de la información 
 
-### Luis Enrique Cardoso Tineo
+![DASHBOARD](evidencias/imagenes/DASHBOARD.png)
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Enrykiel)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:isc.luiss88000@gmail.com)
+##  Resultados
 
-**Data Engineering** | **Azure Databricks** | **Delta Lake** | **CI/CD**
+El proyecto permite:
 
+- Procesar información de comercio electrónico.
+- Mantener trazabilidad completa de los datos.
+- Proporcionar datasets listos para análisis.
+- Garantizar gobierno y seguridad de la información.
+- Facilitar el consumo por analistas y científicos de datos.
 
----
+## Autor
 
-## 📄 Licencia
+Nombre: Anayeli Flores
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-
-**Proyecto**: Data Engineering - Arquitectura Medallion  
-**Tecnología**: Azure Databricks + Delta Lake + CI/CD  
+Proyecto desarrollado como parte del curso de Data Engineering utilizando Azure Databricks y Delta Lake.
