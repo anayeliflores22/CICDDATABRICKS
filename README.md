@@ -44,7 +44,7 @@ Flujo de Datos
     ↓
 #### 📊 BI Dashboards (Visualización)
 
-![Arquitectura de Datos](evidencias/imagenes/Arquitectura.png)
+![Arquitectura de Datos](evidencias/imagenes/Arquitectura.jpg)
 
 
 ## Capas del Pipeline
@@ -174,7 +174,7 @@ Validaciones implementadas:
 
 Se implemento un dashboard en Power BI para la visualización de la información 
 
-![DASHBOARD](evidencias/imagenes/DASHBOARD.png)
+![DASHBOARD](evidencias/imagenes/DASHBOARD.jpg)
 
 ##  Resultados
 
